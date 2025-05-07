@@ -1,8 +1,9 @@
 import { TextInput, View, StyleSheet, Alert } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
+import Colors from "../constants/Colors";
 
-function StartGameScreen() {
+function StartGameScreen({ onConfirmNumber }) {
   const [enteredNumber, setEnteredNumber] = useState("");
 
   function numberInputHandler(enteredText) {
@@ -22,6 +23,7 @@ function StartGameScreen() {
       ]);
       // alert takes three parameters : first is title of alert , second is message to be displayed for alert and third is button that we want to show . On invalid input it shows alert messsage with button "okay"
     }
+    onConfirmNumber(chosenNumber);
   }
 
   return (
@@ -37,15 +39,15 @@ function StartGameScreen() {
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
-          <PrimaryButton confirm_OR_Reset_Button={resetInputHandler}> 
+          <PrimaryButton onPress={resetInputHandler}>
+            {" "}
+            {/* here onPress is prop passed from PrimaryButton.js */}
             Reset
           </PrimaryButton>
         </View>
         <View style={styles.buttonContainer}>
-          <PrimaryButton confirm_OR_Reset_Button={confirmInputHandler}>
-            Confirm
-          </PrimaryButton>{" "}
-          {/* here confirm_OR_Reset_Button is a prop */}
+          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          {/* here onPress is a prop */}
         </View>
       </View>
     </View>
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginHorizontal: 24,
     borderRadius: 8,
-    backgroundColor: "#3b021f",
+    backgroundColor: Colors.primary800,
     elevation: 4, // it means shadow effect and works only for android
     // to use shadow on ios we have to use shadowColor , shadowOffset, shadowRadius and shadowOpacity
     shadowColor: "black",
@@ -74,9 +76,9 @@ const styles = StyleSheet.create({
     height: 60,
     width: 50,
     fontSize: 32,
-    borderBottomColor: "#ddb52f",
+    borderBottomColor: Colors.accent500,
     borderBottomWidth: 2,
-    color: "#ddb52f",
+    color: Colors.accent500,
     fontWeight: "bold",
     textAlign: "center",
   },

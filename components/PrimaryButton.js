@@ -1,7 +1,8 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
+import Colors from "../constants/Colors";
 
-const PrimaryButton = ({ children, confirm_OR_Reset_Button }) => {
+const PrimaryButton = ({ children, onPress }) => {
   return (
     <View style={Styles.buttonOuterContainer}>
       <Pressable
@@ -10,9 +11,9 @@ const PrimaryButton = ({ children, confirm_OR_Reset_Button }) => {
             ? [Styles.buttonInnerContainer, Styles.rippleIos]
             : Styles.buttonInnerContainer
         }
-        android_ripple={{ color: "#640233" }}
-        onPress={confirm_OR_Reset_Button}
-        // here confirm_Or_Reset_Button is a prop , So when the button is pressed, it calls the function you sent in the confirm_Reset_Button prop in StartGameScreen which is confirmInputHandler and resetInputHandler
+        android_ripple={{ color: Colors.primary600 }}
+        onPress={onPress}
+        // here onPress on right is a prop , So when the button is pressed, it calls the function you sent in the onPress prop in StartGameScreen which is confirmInputHandler and resetInputHandler
       >
         <Text style={Styles.buttonText}>{children}</Text>
         {/* children is a special prop in React (and React Native) that allows you to pass content between the opening and closing tags of a component. */}
@@ -31,7 +32,7 @@ const Styles = StyleSheet.create({
   },
 
   buttonInnerContainer: {
-    backgroundColor: "#72063c",
+    backgroundColor: Colors.primary500,
     paddingVertical: 8,
     paddingHorizontal: 16,
     elevation: 2,
