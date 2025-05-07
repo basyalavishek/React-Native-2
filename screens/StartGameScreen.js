@@ -2,6 +2,10 @@ import { TextInput, View, StyleSheet, Alert } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
 import Colors from "../constants/Colors";
+import Title from "../components/Title";
+import InstructionText from "../components/InstructionText";
+import Card from "../components/Card";
+
 
 function StartGameScreen({ onConfirmNumber }) {
   const [enteredNumber, setEnteredNumber] = useState("");
@@ -27,29 +31,32 @@ function StartGameScreen({ onConfirmNumber }) {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.input}
-        maxLength={2}
-        keyboardType="number-pad"
-        autoCapitalize="none"
-        autoCorrect={false}
-        value={enteredNumber}
-        onChangeText={numberInputHandler}
-      />
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={resetInputHandler}>
-            {" "}
-            {/* here onPress is prop passed from PrimaryButton.js */}
-            Reset
-          </PrimaryButton>
+    <View style={styles.rootContainer}>
+      <Title>Guess My number</Title>
+      <Card>
+        <InstructionText>Enter a Number</InstructionText>
+        <TextInput
+          style={styles.input}
+          maxLength={2}
+          keyboardType="number-pad"
+          autoCapitalize="none"
+          autoCorrect={false}
+          value={enteredNumber}
+          onChangeText={numberInputHandler}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={resetInputHandler}>
+              {/* here onPress is prop passed from PrimaryButton.js */}
+              Reset
+            </PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+            {/* here onPress is a prop */}
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
-          {/* here onPress is a prop */}
-        </View>
-      </View>
+      </Card>
     </View>
   );
 }
@@ -57,21 +64,12 @@ function StartGameScreen({ onConfirmNumber }) {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    padding: 16,
-    marginTop: 100,
-    marginHorizontal: 24,
-    borderRadius: 8,
-    backgroundColor: Colors.primary800,
-    elevation: 4, // it means shadow effect and works only for android
-    // to use shadow on ios we have to use shadowColor , shadowOffset, shadowRadius and shadowOpacity
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 6,
+  rootContainer: {
+    flex: 1,
+    marginTop: 150,
     alignItems: "center",
-    justifyContent: "center",
   },
+
   input: {
     height: 60,
     width: 50,
