@@ -1,8 +1,4 @@
-import {
-  StyleSheet,
-  ImageBackground,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import StartGameScreen from "./screens/StartGameScreen";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
@@ -11,20 +7,21 @@ import Colors from "./constants/Colors";
 import GameOverScreen from "./screens/GameOverScreen";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
- 
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(true);
-  const [guessRound , setGuessRound] = useState(0);
+  const [guessRound, setGuessRound] = useState(0);
 
-  const [fontsLoaded] = useFonts({   // fontsLoaded is a boolean
-    'open-sans':require('./assets/fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold':require('./assets/fonts/OpenSans-Bold.ttf')
-  })
+  const [fontsLoaded] = useFonts({
+    // fontsLoaded is a boolean
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
 
-  if(!fontsLoaded){
-    return <AppLoading/> // untill the fonts are loaded show loading screen
+  if (!fontsLoaded) {
+    return <AppLoading />; // untill the fonts are loaded show loading screen
   }
 
   function pickedNumberHandler(pickedNumber) {
@@ -34,10 +31,10 @@ export default function App() {
 
   function gameOverHandler(numberOfRounds) {
     setGameIsOver(true);
-    setGuessRound(numberOfRounds)
+    setGuessRound(numberOfRounds);
   }
 
-  function startNewGameHandler(){
+  function startNewGameHandler() {
     setUserNumber(null);
     setGuessRound(0);
   }
@@ -51,23 +48,33 @@ export default function App() {
   }
 
   if (gameIsOver && userNumber) {
-    screen = <GameOverScreen userNumber = {userNumber} roundsNumber  = {guessRound} onStartNewGame ={startNewGameHandler} />;
+    screen = (
+      <GameOverScreen
+        userNumber={userNumber}
+        roundsNumber={guessRound}
+        onStartNewGame={startNewGameHandler}
+      />
+    );
   }
 
   return (
-    <LinearGradient
-      colors={[Colors.primary700, Colors.accent500]}
-      style={styles.rootScreen}
-    >
-      <ImageBackground
-        source={require("./assets/images/background.png")}
-        resizeMode="cover"
-        style={styles.rootScreen}
-        imageStyle={styles.backgroundImage}
-      >
-        <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+    <>
+      <StatusBar style="light" />
+        <LinearGradient
+          colors={[Colors.primary700, Colors.accent500]}
+          style={styles.rootScreen}
+        >
+          <ImageBackground
+            source={require("./assets/images/background.png")}
+            resizeMode="cover"
+            style={styles.rootScreen}
+            imageStyle={styles.backgroundImage}
+          >
+            <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
+          </ImageBackground>
+        </LinearGradient>
+      
+    </>
   );
 }
 
